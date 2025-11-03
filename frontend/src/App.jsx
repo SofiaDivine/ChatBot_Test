@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
-import Sidebar from './components/Sidebar/Sidebar';
+import Sidebar from './components/Sidebar';
 import ChatWindow from './components/ChatWindow';
 import ModalManager from './components//ModalManager';
 import Toast from './components/Toast';
