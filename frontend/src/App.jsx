@@ -3,9 +3,9 @@ import axios from 'axios';
 import './App.css';
 
 import Sidebar from './components/Sidebar/Sidebar';
-import ChatWindow from './components/ChatWindow/ChatWindow';
-import ModalManager from './components/Common/ModalManager';
-import Toast from './components/Common/Toast';
+import ChatWindow from './components/ChatWindow';
+import ModalManager from './components//ModalManager';
+import Toast from './components/Toast';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:5000';
 // --------------------------------------------------------
