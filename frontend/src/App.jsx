@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
-import Sidebar from './components/Sidebar';
-import ChatWindow from './components/ChatWindow';
-import ModalManager from './components/ModalManager';
-import Toast from './components/Toast';
 
-const API_URL = 'http://localhost:5000/api';
-const WS_URL = 'ws://localhost:5000';
+import Sidebar from './components/Sidebar/Sidebar';
+import ChatWindow from './components/ChatWindow/ChatWindow';
+import ModalManager from './components/Common/ModalManager';
+import Toast from './components/Common/Toast';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:5000';
+// --------------------------------------------------------
 
 function App() {
   const [chats, setChats] = useState([]);
@@ -58,15 +59,13 @@ function App() {
   // Встановлюємо WebSocket з'єднання
   useEffect(() => {
     connectWebSocket();
-    // Чистимо з'єднання
+    // Чистимо з'єднання при розмонтуванні компонента
     return () => {
       if (ws.current) {
         ws.current.close();
       }
     };
-  }, []); // Запускаємо лише один раз
-
-  // WEBSOCKET
+  }, []);
 
   const connectWebSocket = () => {
     ws.current = new WebSocket(WS_URL);
@@ -197,9 +196,6 @@ function App() {
     }
   };
 
-
-  // ФУНКЦІЇ ДЛЯ API
-
   const fetchChats = async () => {
     setLoading(true);
     try {
@@ -258,7 +254,7 @@ function App() {
     }
   };
 
-  //CRUD ЧАТІВ
+  // CRUD ЧАТІВ
   const handleCreateChat = async (e) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName) {
@@ -334,7 +330,7 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  //TOAST-СПОВІЩЕННЯ
+  // TOAST-СПОВІЩЕННЯ
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type });
     setTimeout(() => {
@@ -364,7 +360,7 @@ function App() {
     }
   };
 
-  //  Фільтрація
+  // Фільтрація
   const filteredChats = chats.filter((chat) =>
     `${chat.firstName} ${chat.lastName}`.toLowerCase().includes(searchTerm)
   );
